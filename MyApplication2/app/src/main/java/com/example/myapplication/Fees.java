@@ -21,6 +21,7 @@ public class Fees extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
 
+    //Side note: This page also uses a background
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class Fees extends AppCompatActivity {
         a4.setText(account_balance);
         a5.setText(account_payable);
 
+        //Check current payable amount
         a1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +63,7 @@ public class Fees extends AppCompatActivity {
 
         Dialog mDialog = new Dialog(this);
 
+        //Top up balance to pay
         a2.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -81,6 +84,7 @@ public class Fees extends AppCompatActivity {
             }
         });
 
+        //To pay function
         a3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
