@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
                                     if(getRole.equals("admin")){
                                         Toast.makeText(Login.this, "logged in", Toast.LENGTH_SHORT).show();
                                         //open main activity after launch
-                                        Intent intent = new Intent(Login.this, userlist.class);
+                                        Intent intent = new Intent(Login.this, Admin.class);
                                         intent.putExtra("phonepass", phonetxt);
                                         startActivity(intent);
                                         finish();
