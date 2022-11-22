@@ -40,7 +40,6 @@ public class editaccount extends AppCompatActivity {
 
         Button passwordBtn = findViewById(R.id.editaccount_password_button);
         Button emailBtn = findViewById(R.id.editaccount_email_button);
-        Button phoneBtn = findViewById(R.id.editaccount_phone_button);
         Button institutionBtn = findViewById(R.id.editaccount_institution_button);
 
         passwordBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,16 +57,6 @@ public class editaccount extends AppCompatActivity {
             public void onClick(View v) {
 
                 placeholder = "email";
-                alertshow();
-
-            }
-        });
-
-        phoneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                placeholder = "phone";
                 alertshow();
 
             }
