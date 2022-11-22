@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
                 final String passwordTxt = password.getText().toString();
 
                 if(phonetxt.isEmpty() || passwordTxt.isEmpty()){
-                    Toast.makeText(Login.this,"please enter your mobile or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this,"Please enter your mobile or password", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,15 +61,15 @@ public class Login extends AppCompatActivity {
                                 final String gethotelunit = snapshot.child(phonetxt).child("HostelUnit").getValue().toString();
                                 final String gethoteldue = snapshot.child(phonetxt).child("HostelDue").getValue().toString();
                                 if(!gethotel.isEmpty()){
-                                    gethotelkitchen= snapshot.child(gethotel).child("BedSize").getValue().toString();
-                                    gethoteltoilet = snapshot.child(gethotel).child("kitchen").getValue().toString();
-                                    gethotelbedsize = snapshot.child(gethotel).child("toilet").getValue().toString();
+                                    gethotelkitchen= snapshot.child(gethotel).child("kitchen").getValue().toString();
+                                    gethoteltoilet = snapshot.child(gethotel).child("toilet").getValue().toString();
+                                    gethotelbedsize = snapshot.child(gethotel).child("BedSize").getValue().toString();
                                 }
                                 if(getPassword.equals(passwordTxt)){
                                     if(getRole.equals("admin")){
                                         Toast.makeText(Login.this, "logged in", Toast.LENGTH_SHORT).show();
                                         //open main activity after launch
-                                        Intent intent = new Intent(Login.this, userlist.class);
+                                        Intent intent = new Intent(Login.this, Admin.class);
                                         intent.putExtra("phonepass", phonetxt);
                                         startActivity(intent);
                                         finish();
@@ -89,9 +89,10 @@ public class Login extends AppCompatActivity {
                                         intent.putExtra("hotelpass", gethotel);
                                         intent.putExtra("hotelunitpass", gethotelunit);
                                         intent.putExtra("hotelduepass", gethoteldue);
+                                        intent.putExtra("hotelbedsizepass", gethotelbedsize);
                                         intent.putExtra("hotelkitchenpass", gethotelkitchen);
                                         intent.putExtra("hoteltoiletpass", gethoteltoilet);
-                                        intent.putExtra("hotelbedsizepass", gethotelbedsize);
+
                                         startActivity(intent);
                                         finish();
                                     }
