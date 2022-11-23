@@ -42,18 +42,6 @@ public class HostelInfo extends AppCompatActivity {
         a6= (TextView) findViewById(R.id.hostel_toilet_txt);
 
         showAllUserData();
-
-
-//        Button hostelBtn; //to be deleted/reuse DELETE
-//        hostelBtn = (Button) findViewById(R.id.hostel_edit);
-//
-//        hostelBtn.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                Intent i = new Intent(HostelInfo.this,MainActivity.class);
-//                startActivity(i);
-//            }
-//        });
     }
 
     private void showAllUserData(){
