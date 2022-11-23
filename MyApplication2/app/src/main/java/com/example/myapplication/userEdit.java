@@ -47,7 +47,7 @@ public class userEdit extends AppCompatActivity {
         Button institutionBtn = findViewById(R.id.edituser_institution_button);
         Button roleBtn = findViewById(R.id.edituser_role_button);
 
-        hotelBtn.setOnClickListener(new View.OnClickListener() {
+        hotelBtn.setOnClickListener(new View.OnClickListener() {//gave value to placeholder so the popup can open with the placeholder value set
             @Override
             public void onClick(View v) {
                 placeholder = "Hostel";
