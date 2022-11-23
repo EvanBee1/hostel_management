@@ -18,6 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HostelInfo extends AppCompatActivity {
     //connects to firebase database
+    //create object of database reference class to access firebase realtime database
+
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
     TextView a1, a2, a3, a4 ,a5 ,a6 ;
 
@@ -26,6 +28,7 @@ public class HostelInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_info);
 
+        //receive from MainActivity
         Intent intent = getIntent();
         //obtain account from database
         String account_phone = intent.getStringExtra("phoneplaceholder");
