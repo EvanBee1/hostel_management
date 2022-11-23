@@ -77,6 +77,8 @@ public class Register extends AppCompatActivity {
                                 databaseReference.child("users").child(phonetxt).child("HostelDue").setValue("");
                                 databaseReference.child("users").child(phonetxt).child("complaint").setValue("");
                                 databaseReference.child("users").child(phonetxt).child("phone").setValue(phonetxt);
+                                Toast.makeText(Register.this, "Phone already registered", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         }
 
