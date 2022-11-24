@@ -1,32 +1,18 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private CardView D1,D2,D3,D4;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
-    String phonepass2, emailpass2,passwordpass2,usernamepass2,institutionpass2, payablepass2, balancepass2, hotelpass2, hotelunitpass2, hotelduepass2, hotelkitchenpass2, hoteltoiletpass2, hotelbedsizepass2;
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,13 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         D2 = (CardView) findViewById(R.id.Fees);
         D3 = (CardView) findViewById(R.id.HostelInfo);
         D4 = (CardView) findViewById(R.id.Complaint);
-
-        Intent intent = getIntent();
-        String complaintstatuspass2 = intent.getStringExtra("complaintstatuspass");
-
-        if(complaintstatuspass2.equals("2")){
-            alertshow();
-        }
 
         D1.setOnClickListener((View.OnClickListener) this);
         D2.setOnClickListener((View.OnClickListener) this);
@@ -67,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         Intent i ;
         Intent intent;
+        String phonepass2, emailpass2,passwordpass2,usernamepass2,institutionpass2, payablepass2, balancepass2, hotelpass2, hotelunitpass2, hotelduepass2, hotelkitchenpass2, hoteltoiletpass2, hotelbedsizepass2;
         switch(v.getId()){
             case R.id.account :
                 i = new Intent(this,account.class);
@@ -82,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i.putExtra("institutionplaceholder", institutionpass2);
                 i.putExtra("usernameplaceholder", usernamepass2);
                 startActivity(i);
-            break;
+                break;
             case R.id.Fees :
                 i = new Intent(this,Fees.class);
                 intent = getIntent();
@@ -93,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i.putExtra("payableplaceholder", payablepass2);
                 i.putExtra("balanceplaceholder", balancepass2);
                 startActivity(i);
-            break;
+                break;
             case R.id.HostelInfo:
                 i = new Intent(this,HostelInfo.class);
                 intent = getIntent();
@@ -112,34 +92,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 i.putExtra("hoteltoiletplaceholder", hoteltoiletpass2);
                 i.putExtra("hotelbedsizeplaceholder", hotelbedsizepass2);
                 startActivity(i);
-            break;
+                break;
             case R.id.Complaint:
                 i = new Intent(this,Complaint.class);
                 intent = getIntent();
                 phonepass2 = intent.getStringExtra("phonepass");
                 i.putExtra("phoneplaceholder", phonepass2);
                 startActivity(i);
-            break;
+                break;
         }
-    }
-
-    public void alertshow(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setTitle("HI ! ");
-        alert.setMessage("Admin has read your complaint, thanks for sending your feedback");
-
-        alert.setPositiveButton("OK !", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-
-                Intent intent = getIntent();
-                phonepass2 = intent.getStringExtra("phonepass");
-                databaseReference.child("users").child(phonepass2).child("complaintstatus").setValue("0");
-            }
-        });
-
-        alert.show();
-
     }
 
 }
