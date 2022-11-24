@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.HostelInfo:
                 i = new Intent(this,HostelInfo.class);
                 intent = getIntent();
+                //takes from the database
                 phonepass2 = intent.getStringExtra("phonepass");
                 hotelpass2 = intent.getStringExtra("hotelpass");
                 hotelunitpass2 = intent.getStringExtra("hotelunitpass");
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 hotelkitchenpass2 = intent.getStringExtra("hotelkitchenpass");
                 hoteltoiletpass2 = intent.getStringExtra("hoteltoiletpass");
                 hotelbedsizepass2 = intent.getStringExtra("hotelbedsizepass");
+                //sends to hostelinfo.java
+                //send fetched data to next page for further use
                 i.putExtra("phoneplaceholder", phonepass2);
                 i.putExtra("hotelplaceholder", hotelpass2);
                 i.putExtra("hotelunitplaceholder", hotelunitpass2);

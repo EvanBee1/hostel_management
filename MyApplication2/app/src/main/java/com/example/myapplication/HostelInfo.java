@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class HostelInfo extends AppCompatActivity {
+    //connects to firebase database
+    //create object of database reference class to access firebase realtime database
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
     TextView a1, a2, a3, a4 ,a5 ,a6 ;
@@ -26,9 +28,12 @@ public class HostelInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_info);
 
+        //receive from MainActivity
         Intent intent = getIntent();
+        //obtain phone/user account from database
         String account_phone = intent.getStringExtra("phoneplaceholder");
 
+        //sets variables from valus from activity hostel info.txt
         a1= (TextView) findViewById(R.id.hostel_hostelunit);
         a2= (TextView) findViewById(R.id.hostel_size_txt);
         a3= (TextView) findViewById(R.id.hostel_due_txt);
@@ -53,12 +58,22 @@ public class HostelInfo extends AppCompatActivity {
 
     private void showAllUserData(){
         Intent intent = getIntent();
+        //obtain from main activity and put in the androids view
+        //get methods to obtain data from the intent
+        //hostel name
         String account_hotel = intent.getStringExtra("hotelplaceholder");
+        //hotel unit ex: A1-10-02
         String account_hotel_unit = intent.getStringExtra("hotelunitplaceholder");
+        //the duration of students stay at hotel
         String account_hotel_due = intent.getStringExtra("hoteldueplaceholder");
+        //status of the kitcen ownership, usually shared
         String account_hotel_kitchen = intent.getStringExtra("hotelkitchenplaceholder");
+        //status of the bathroom
         String account_hotel_toilet = intent.getStringExtra("hoteltoiletplaceholder");
+        //size of the bed rented by student, ex:queen, double, single
         String account_hotel_bedsize = intent.getStringExtra("hotelbedsizeplaceholder");
+
+        //set the information into hostel view
         a1.setText(account_hotel_unit);
         a2.setText(account_hotel);
         a3.setText(account_hotel_due);

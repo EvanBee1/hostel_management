@@ -30,6 +30,13 @@
         android:testOnly="true"
         android:theme="@style/Theme.MyApplication" >
         <activity
+            android:name="com.example.myapplication.userEdit"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.example.myapplication.editaccount"
             android:exported="false" >
             <meta-data
@@ -106,14 +113,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name="com.example.myapplication.User"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name="com.example.myapplication.userlist"
+            android:name="com.example.myapplication.Admin"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
