@@ -139,7 +139,32 @@ public class userEdit extends AppCompatActivity {
         if(placeholder=="complaint"){
 
             alert.setMessage(account_complaint_pass);
+            alert.setPositiveButton("Clear Complaint", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+                    // Do something with value!
+
+                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            databaseReference.child("users").child(account_phone_pass).child("complaint").setValue("");
+                            databaseReference.child("users").child(account_phone_pass).child("complaintstatus").setValue("2");
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            });
             alert.show();
+
         }
 
         else{
