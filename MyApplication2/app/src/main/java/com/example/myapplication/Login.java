@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-
+    //connect to database
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
     String gethotelkitchen,gethoteltoilet, gethotelbedsize;
     @Override
@@ -26,6 +26,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //declaration
         final EditText phone = findViewById(R.id.phone);
         final EditText password = findViewById(R.id.password);
         final Button loginBtn = findViewById(R.id.loginBtn);
@@ -47,7 +48,7 @@ public class Login extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             //check if mobile/phone exist in database
                             if(snapshot.hasChild(phonetxt)){
-                                // mobile exist in database
+                                //mobile exist in database
                                 // then get password and match with input
                                 final String getPassword = snapshot.child(phonetxt).child("password").getValue().toString();
                                 final String getRole = snapshot.child(phonetxt).child("role").getValue().toString();
@@ -60,12 +61,16 @@ public class Login extends AppCompatActivity {
                                 final String gethotel = snapshot.child(phonetxt).child("Hostel").getValue().toString();
                                 final String gethotelunit = snapshot.child(phonetxt).child("HostelUnit").getValue().toString();
                                 final String gethoteldue = snapshot.child(phonetxt).child("HostelDue").getValue().toString();
+                                final String getcomplaintstatus = snapshot.child(phonetxt).child("complaintstatus").getValue().toString();
+                                //this 3 variable will pass it if the gethotel is not empty
                                 if(!gethotel.isEmpty()){
                                     gethotelkitchen= snapshot.child(gethotel).child("kitchen").getValue().toString();
                                     gethoteltoilet = snapshot.child(gethotel).child("toilet").getValue().toString();
                                     gethotelbedsize = snapshot.child(gethotel).child("BedSize").getValue().toString();
                                 }
+                                //if else statement to check if the entered password match with the password in the firebase database
                                 if(getPassword.equals(passwordTxt)){
+                                    //send user to admin page if that user has role "admin"
                                     if(getRole.equals("admin")){
                                         Toast.makeText(Login.this, "logged in", Toast.LENGTH_SHORT).show();
                                         //open main activity after launch
@@ -74,11 +79,11 @@ public class Login extends AppCompatActivity {
                                         startActivity(intent);
                                         finish();
                                     }
-
+                                    //send user to main activity/ menu if they are not admin
                                     else{
                                         Toast.makeText(Login.this, "logged in", Toast.LENGTH_SHORT).show();
                                         //open main activity after launch
-                                        Intent intent = new Intent(Login.this, MainActivity.class);
+                                        Intent intent = new Intent(Login.this, MainActivity.class);//send fetched data to next page for further use
                                         intent.putExtra("phonepass", phonetxt);
                                         intent.putExtra("emailpass", getemail);
                                         intent.putExtra("passwordpass", getpassword);
@@ -92,12 +97,13 @@ public class Login extends AppCompatActivity {
                                         intent.putExtra("hotelbedsizepass", gethotelbedsize);
                                         intent.putExtra("hotelkitchenpass", gethotelkitchen);
                                         intent.putExtra("hoteltoiletpass", gethoteltoilet);
+                                        intent.putExtra("complaintstatuspass", getcomplaintstatus);
 
-                                        startActivity(intent);
-                                        finish();
+                                        startActivity(intent);//start next page
+                                        finish();//end this activity
                                     }
                                 }
-                                else{
+                                else{// if there is mismatch with the data user entered, this will be prompted.
                                     Toast.makeText(Login.this, "Phone or password wrong", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -116,7 +122,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                Open register activity
+                //Open register activity
                 startActivity(new Intent(Login.this, Register.class));
             }
         });
