@@ -23,7 +23,7 @@ public class userEdit extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
 
-    String account_phone_pass,account_username_pass, placeholder;
+    String account_phone_pass,account_username_pass, placeholder,account_complaint_pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class userEdit extends AppCompatActivity {
         Intent intent = getIntent();
         account_phone_pass = intent.getStringExtra("phonepass");
         account_username_pass = intent.getStringExtra("usernamepass");
+        account_complaint_pass = intent.getStringExtra("complaintpass");
         TextView usernametxt = findViewById(R.id.edituser_username_label);
         usernametxt.setText(account_username_pass);
 
@@ -46,6 +47,7 @@ public class userEdit extends AppCompatActivity {
         Button fullnameBtn = findViewById(R.id.edituser_fullname_button);
         Button institutionBtn = findViewById(R.id.edituser_institution_button);
         Button roleBtn = findViewById(R.id.edituser_role_button);
+        Button complaintBtn = findViewById(R.id.edituser_complaint_button);
 
         hotelBtn.setOnClickListener(new View.OnClickListener() {//gave value to placeholder so the popup can open with the placeholder value set
             @Override
@@ -117,6 +119,13 @@ public class userEdit extends AppCompatActivity {
                 alertshow();
             }
         });
+        complaintBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeholder = "complaint";
+                alertshow();
+            }
+        });
 
     }
 
@@ -126,46 +135,54 @@ public class userEdit extends AppCompatActivity {
         alert.setTitle("Change Information");
         alert.setMessage(placeholder);
 
-        // Set an EditText view to get user input
-        EditText input = new EditText(this);
-        alert.setView(input);
 
-        alert.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
+        if(placeholder=="complaint"){
 
-                // Do something with value!
+            alert.setMessage(account_complaint_pass);
+            alert.show();
+        }
 
-                databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String data = input.getText().toString();
-                        String getOriginalData = snapshot.child(account_phone_pass).child(placeholder).getValue().toString();
-                        if(data.equals(getOriginalData)){
-                            Toast.makeText(userEdit.this, "Same information inputted", Toast.LENGTH_SHORT).show();
+        else{
+            // Set an EditText view to get user input
+
+            EditText input = new EditText(this);
+            alert.setView(input);
+            alert.setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+                    // Do something with value!
+
+                    databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String data = input.getText().toString();
+                            String getOriginalData = snapshot.child(account_phone_pass).child(placeholder).getValue().toString();
+                            if(data.equals(getOriginalData)){
+                                Toast.makeText(userEdit.this, "Same information inputted", Toast.LENGTH_SHORT).show();
+                            }
+                            if(data.isEmpty()){
+                                Toast.makeText(userEdit.this, "You entered nothing", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                databaseReference.child("users").child(account_phone_pass).child(placeholder).setValue(data);
+                                Toast.makeText(userEdit.this, "Information Updated", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-                        if(data.isEmpty()){
-                            Toast.makeText(userEdit.this, "You entered nothing", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
                         }
-                        else{
-                            databaseReference.child("users").child(account_phone_pass).child(placeholder).setValue(data);
-                            Toast.makeText(userEdit.this, "Information Updated", Toast.LENGTH_SHORT).show();
-                        }
+                    });
+                }
+            });
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-            }
-        });
-
-        alert.show();
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            });
+            alert.show();
+        }
     }
 }
