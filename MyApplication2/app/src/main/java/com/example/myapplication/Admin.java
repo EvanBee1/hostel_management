@@ -51,10 +51,12 @@ public class Admin extends AppCompatActivity {
                             if(snapshot.hasChild(user)){
                                 //get full name from database
                                 final String getusername = snapshot.child(user).child("fullname").getValue().toString();
+                                final String getcomplaint = snapshot.child(user).child("complaint").getValue().toString();
                                 Toast.makeText(Admin.this, "User found", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Admin.this, userEdit.class);
                                 intent.putExtra("phonepass",user);//pass data to next activity
                                 intent.putExtra("usernamepass",getusername);
+                                intent.putExtra("complaintpass",getcomplaint);
                                 startActivity(intent);
                             }
                             else{//toast this when the inputed user is not in the database
