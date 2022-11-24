@@ -21,7 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class Admin extends AppCompatActivity {
-
+    
+    //code to connect to firebase database 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance("https://androiddev-eaabf-default-rtdb.asia-southeast1.firebasedatabase.app").getReference();
 
     @Override
@@ -29,32 +30,34 @@ public class Admin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        //declaration
         EditText searchUser = findViewById(R.id.admin_search);
         Button searchBtn = findViewById(R.id.admin_button);
         Button logoutBtn = findViewById(R.id.lgBtn);
-
-
-
+        
+        
+        //onclick listener for button
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String user = searchUser.getText().toString();
-                if(user.isEmpty()){
+                final String user = searchUser.getText().toString();//redeclare so it can be used in here.
+                if(user.isEmpty()){//if else statement for error handling
                     Toast.makeText(Admin.this, "You entered nothing", Toast.LENGTH_SHORT).show();
                 }
-                else{
+                else{//run this if there is no bad input
                     databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if(snapshot.hasChild(user)){
+                                //get full name from database
                                 final String getusername = snapshot.child(user).child("fullname").getValue().toString();
                                 Toast.makeText(Admin.this, "User found", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Admin.this, userEdit.class);
-                                intent.putExtra("phonepass",user);
+                                intent.putExtra("phonepass",user);//pass data to next activity
                                 intent.putExtra("usernamepass",getusername);
                                 startActivity(intent);
                             }
-                            else{
+                            else{//toast this when the inputed user is not in the database
                                 Toast.makeText(Admin.this, "User not found", Toast.LENGTH_SHORT).show();
                             }
 

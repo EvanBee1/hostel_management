@@ -40,18 +40,18 @@ public class Register extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String fullnametxt = fullname.getText().toString();
+                final String fullnametxt = fullname.getText().toString();//declarations
                 final String emailtxt = email.getText().toString();
                 final String phonetxt = phone.getText().toString();
                 final String passwordtxt = password.getText().toString();
                 final String institutiontxt = institution.getText().toString();
                 final String conPasswordtxt = conPassword.getText().toString();
-
+                //error handling
                 if(fullnametxt.isEmpty() || emailtxt.isEmpty() || phonetxt.isEmpty() || passwordtxt.isEmpty() || conPasswordtxt.isEmpty()){
                     Toast.makeText(Register.this, "please fill all fields", Toast.LENGTH_SHORT).show();
                 }
 
-                else if(!passwordtxt.equals(conPasswordtxt)) {
+                else if(!passwordtxt.equals(conPasswordtxt)) {//error handling
                     Toast.makeText(Register.this, "Passwords are not match", Toast.LENGTH_SHORT).show();
                 }
 
@@ -59,7 +59,7 @@ public class Register extends AppCompatActivity {
                     databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.hasChild(phonetxt)){
+                            if(snapshot.hasChild(phonetxt)){//error handling
                                 Toast.makeText(Register.this, "Phone already registered", Toast.LENGTH_SHORT).show();
                             }
 
@@ -77,6 +77,8 @@ public class Register extends AppCompatActivity {
                                 databaseReference.child("users").child(phonetxt).child("HostelDue").setValue("");
                                 databaseReference.child("users").child(phonetxt).child("complaint").setValue("");
                                 databaseReference.child("users").child(phonetxt).child("phone").setValue(phonetxt);
+                                Toast.makeText(Register.this, "Phone already registered", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         }
 

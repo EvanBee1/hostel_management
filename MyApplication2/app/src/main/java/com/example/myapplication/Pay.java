@@ -49,12 +49,12 @@ public class Pay extends AppCompatActivity {
                         float currpayable = Float.parseFloat(payable);
                         float actualbalance = Float.parseFloat(balance);
 
-                        if(getpay==0){
+                        if(getpay==0){//error handling
                             Toast.makeText(Pay.this, "you entered nothing", Toast.LENGTH_SHORT).show();
 
                         }
 
-                        if (currpayable==0) {
+                        if (currpayable==0) {//error handling
                             Toast.makeText(Pay.this, "There is no fees to settle", Toast.LENGTH_SHORT).show();
                             paytxt.setText("0");
 
@@ -62,11 +62,11 @@ public class Pay extends AppCompatActivity {
                         else{
                             float total = actualbalance - getpay ;
                             float afterpay = currpayable - getpay;
-                            if(afterpay<0){
+                            if(afterpay<0){//error handling
                                 Toast.makeText(Pay.this, "You are paying too much", Toast.LENGTH_SHORT).show();
                                 paytxt.setText("0");
                             }
-                            else{
+                            else{//update to database
                                 databaseReference.child("users").child(account).child("balance").setValue(total);
                                 databaseReference.child("users").child(account).child("payable").setValue(afterpay);
                                 Toast.makeText(Pay.this, "Payment Successful", Toast.LENGTH_SHORT).show();
@@ -88,16 +88,3 @@ public class Pay extends AppCompatActivity {
     }
 
 }
-
-//    String payable = snapshot.child("payable").getValue().toString();
-//    String balance = snapshot.child("balance").getValue().toString();
-//
-//    float currpayable = Float.parseFloat(payable);
-//    float actualbalance = Float.parseFloat(balance);
-//
-//    float total = actualbalance - currpayable ;
-//    float afterpay = currpayable - total ;
-//
-//                        databaseReference.child("users").child(account_phone).child("balance").setValue(total);
-//                                databaseReference.child("users").child(account_phone).child("payable").setValue(afterpay);
-//                                Toast.makeText(Fees.this, "Payment Successful", Toast.LENGTH_SHORT).show();
