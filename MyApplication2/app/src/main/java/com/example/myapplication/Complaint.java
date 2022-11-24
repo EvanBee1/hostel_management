@@ -62,6 +62,7 @@ public class Complaint extends AppCompatActivity {
                             else{
                                 //connect to database
                                 databaseReference.child("users").child(account_phone).child("complaint").setValue(complainttxt);
+                                databaseReference.child("users").child(account_phone).child("complaintstatus").setValue("1");
                                 //if database empty then record into databse
                                 Toast.makeText(Complaint.this, "Recorded", Toast.LENGTH_SHORT).show();
                             }
