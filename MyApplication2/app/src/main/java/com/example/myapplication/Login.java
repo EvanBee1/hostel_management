@@ -61,6 +61,7 @@ public class Login extends AppCompatActivity {
                                 final String gethotel = snapshot.child(phonetxt).child("Hostel").getValue().toString();
                                 final String gethotelunit = snapshot.child(phonetxt).child("HostelUnit").getValue().toString();
                                 final String gethoteldue = snapshot.child(phonetxt).child("HostelDue").getValue().toString();
+                                final String getcomplaintstatus = snapshot.child(phonetxt).child("complaintstatus").getValue().toString();
                                 //this 3 variable will pass it if the gethotel is not empty
                                 if(!gethotel.isEmpty()){
                                     gethotelkitchen= snapshot.child(gethotel).child("kitchen").getValue().toString();
@@ -96,6 +97,7 @@ public class Login extends AppCompatActivity {
                                         intent.putExtra("hotelbedsizepass", gethotelbedsize);
                                         intent.putExtra("hotelkitchenpass", gethotelkitchen);
                                         intent.putExtra("hoteltoiletpass", gethoteltoilet);
+                                        intent.putExtra("complaintstatuspass", getcomplaintstatus);
             
                                         startActivity(intent);//start next page
                                         finish();//end this activity
